@@ -5,6 +5,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, UserManager, PermissionsMixin
 
 
+# 사용자 생성 및 관리를 위한 메소드 정의
 class CustomUserManager(UserManager):
     def _create_user(self, username, email, password, **extra_fields):
         if not email:
