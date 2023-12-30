@@ -1,24 +1,27 @@
 from django.shortcuts import render
-import datetime
+from django.template.loader import render_to_string
+from django.http import HttpResponse
 
 
-# Create your views here.
+def index(request):
+    return render(request, 'main/index.html')
 
-def homepage(request):
-    current_time = datetime.datetime.now()  # 현재 날짜 구하기
-    context = {
-        'comma': 50000,
-        'word': 180000000000,
-        'current_time': current_time,
-        "number1": 10,
-        "number2": 1,
-        "yesterday": current_time - datetime.timedelta(days=1),
-        "tomorrow": current_time + datetime.timedelta(days=1),
-    }
-    return render(request, 'human.html', context)
-# views.py
-from django.shortcuts import render
+def about(request):
+    return render(request, 'main/about.html')
+
+def contact(request):
+    return render(request, 'main/contact.html')
+
 def test(request):
-	context ={"name" : "홍길동", "age" : 40}
-
-	return render(request,"test.html", context)
+    data = [
+        {'name': 'leehojun', 'age':10},
+        {'name': 'leehojun2', 'age':20}
+    ]
+    # return HttpResponse('hello world') # 1
+    # return HttpResponse('<h1>hello world</h1>') # 2
+    # 결국 render도 HttpResponse를 리턴합니다. :)
+    s = render_to_string('main/test.txt', {'data': data})
+    header = '<h2>hello world</h2>'
+    footer = '<h2>bye world</h2>'
+    return HttpResponse(header + s + footer) # 3
+    # return render(request, 'main/test.html')
