@@ -31,9 +31,6 @@ DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = ["*"]
 
-AUTH_USER_MODEL = 'accounts.User'
-# Application definition
-
 INSTALLED_APPS = [
     'django.contrib.humanize',
     "django.contrib.admin",
@@ -43,10 +40,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'django_bootstrap5',
-    'main.apps.MainConfig',
-    'blog.apps.BlogConfig',
-    'accounts.apps.AccountsConfig',
-
+    "accounts.apps.AccountsConfig",
+    "blog.apps.BlogConfig",
+    "main.apps.MainConfig",
 ]
 
 MIDDLEWARE = [
@@ -64,7 +60,7 @@ ROOT_URLCONF = "tutorial_blog.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'templates')],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -121,13 +117,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "templates/"
+STATIC_URL = "static/"
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'templates')]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+DATA_API_KEY = env("DATA_API_KEY")
