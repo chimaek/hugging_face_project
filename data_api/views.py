@@ -28,6 +28,7 @@ def call_api(request):
 
     res_data = requests.get(url_base)
 
+
     # 안티패턴
     if not res_data.status_code == 200 or page_no < 1:
         return render(request, "error_500.html")
@@ -38,27 +39,37 @@ def call_api(request):
     page_no = api_data['response']['body']['pageNo']
     items = api_data['response']['body']['items']['item']
 
+    end_page_number = total_page // 100 + 1
+
     data = {
         "total_page": total_page,
         "page_no": page_no,
-        "items": items
+        "items": items,
+        "end_page_number": end_page_number,
     }
     for v in items:
-        if not JejuValuePlace.objects.filter(bsshNm=v['bsshNm']).exists():
-            JejuValuePlace.objects.create(
-                emdNM=v['emdNm'],
-                bsshNm=v['bsshNm'],
-                indutyNm=v['indutyNm'],
-                rnAdres=v['rnAdres'],
-                bsshTelno=v['bsshTelno'],
-                prdlstCn=v['prdlstCn'],
-                etcCn=v['etcCn'],
-                regDt=v['regDt'],
-                laCrdnt=v['laCrdnt'],
-                loCrdnt=v['loCrdnt'],
-                dataCd=v['dataCd'],
-                slctnYr=v['slctnYr'],
-                slctnMm=v['slctnMm'],
-            )
+        save_jeju_value_place_data(v)
 
-    return render(request, "index.html", {"data": data})
+
+
+
+    return render(request, "api_list.html", {"data": data})
+
+
+def save_jeju_value_place_data(val: dict):
+    if not JejuValuePlace.objects.filter(bsshNm=val['bsshNm']).exists():
+        JejuValuePlace.objects.create(
+            emdNM=val['emdNm'],
+            bsshNm=val['bsshNm'],
+            indutyNm=val['indutyNm'],
+            rnAdres=val['rnAdres'],
+            bsshTelno=val['bsshTelno'],
+            prdlstCn=val['prdlstCn'],
+            etcCn=val['etcCn'],
+            regDt=val['regDt'],
+            laCrdnt=val['laCrdnt'],
+            loCrdnt=val['loCrdnt'],
+            dataCd=val['dataCd'],
+            slctnYr=val['slctnYr'],
+            slctnMm=val['slctnMm'],
+        )

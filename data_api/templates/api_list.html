@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <style>
+        .columns {
+            display: flex;
+            justify-content: center;
+        }
+
+        .column.is-10 {
+            flex: none;
+        }
+
+        .section {
+            padding-left: 3rem; /* 왼쪽 여백 */
+            padding-right: 3rem; /* 오른쪽 여백 */
+        }
+
+        /* 여기에 CSS를 추가합니다 */
+        .table td, .table th {
+            vertical-align: middle;
+            text-align: center;
+            white-space: nowrap; /* 추가된 속성 */
+            word-break: break-all; /* 필요에 따라 추가 */
+        }
+    </style>
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-10">
+                <table class="table is-bordered is-striped is-hoverable">
+                    <thead>
+                    <tr>
+                        <th>업소 명</th>
+                        <th>읍면동</th>
+                        <th>업종 명</th>
+                        <th>도로명 주소</th>
+                        <th>업소 전화번호</th>
+                        <th>품목 내용</th>
+                        <th>기타 내용</th>
+                        <th>등록 일시</th>
+                        <th class="has-text-centered is-narrow">위도</th>
+                        <th class="has-text-centered is-narrow">경도</th>
+                        <th>데이터 코드</th>
+                        <th>선정 연도</th>
+                        <th>선정 월</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in data.items %}
+                        <tr>
+                            <td><a href="https://map.naver.com/p/search/{{ item.rnAdres }}"
+                                   target="_blank">{{ item.bsshNm }}</a>
+                            </td>
+                            <td>{{ item.emdNM }}</td>
+                            <td>{{ item.indutyNm }}</td>
+                            <td>{{ item.rnAdres }}</td>
+                            <td>{{ item.bsshTelno }}</td>
+                            <td>{{ item.prdlstCn }}</td>
+                            <td>{{ item.etcCn }}</td>
+                            <td>{{ item.regDt }}</td>
+                            <td>{{ item.laCrdnt }}</td>
+                            <td>{{ item.loCrdnt }}</td>
+                            <td>{{ item.dataCd }}</td>
+                            <td>{{ item.slctnYr }}</td>
+                            <td>{{ item.slctnMm }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<nav class="pagination is-rounded is-centered" role="navigation" aria-label="pagination">
+    <a class="pagination-previous">이전 페이지</a>
+    <a class="pagination-next">다음 페이지</a>
+    <ul class="pagination-list">
+        <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
+        <li><span class="pagination-ellipsis">&hellip;</span></li>
+        <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
+        <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
+        <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
+        <li><span class="pagination-ellipsis">&hellip;</span></li>
+        <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
+    </ul>
+</nav>
+</body>
+</html>
