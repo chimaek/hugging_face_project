@@ -19,8 +19,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-env = environ.Env(DEBUG=(bool, True))
 # SECURITY WARNING: keep the secret key used in production secret!
+env = environ.Env(DEBUG=(bool, True))
 environ.Env.read_env(
     env_file=os.path.join(BASE_DIR, '.env')
 )
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "blog.apps.BlogConfig",
     "main.apps.MainConfig",
+    "data_api.apps.DataApiConfig",
 ]
 
 MIDDLEWARE = [
@@ -122,6 +123,26 @@ STATIC_URL = "static/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 DATA_API_KEY = env("DATA_API_KEY")
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "django.db.backends": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+        },
+    },
+}
