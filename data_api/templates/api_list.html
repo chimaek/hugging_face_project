@@ -77,7 +77,9 @@
         {% if data.page_no > 2 %}
             <li><a class="pagination-link" aria-label="Goto_page_2" href="?pageNo=2">2</a></li>
         {% endif %}
-        <li><span class="pagination-ellipsis">&hellip;</span></li>
+        {% if data.page_no > 3 %}
+            <li><span class="pagination-ellipsis">&hellip;</span></li>
+        {% endif %}
         <li><a class="pagination-link is-current" aria-label="Page_current" aria-current="page">{{ data.page_no }}</a></li>
         {% if data.end_page_number != data.page_no %}
             <li><a class="pagination-link" aria-label="Goto_next_page" href="?pageNo={{ data.page_no | add:1 }}">{{ data.page_no | add:1 }}</a></li>
