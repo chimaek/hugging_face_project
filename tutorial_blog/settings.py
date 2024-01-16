@@ -39,10 +39,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'django_bootstrap5',
-    "accounts.apps.AccountsConfig",
-    "blog.apps.BlogConfig",
-    "main.apps.MainConfig",
     "data_api.apps.DataApiConfig",
     "mathfilters",
 ]
