@@ -1,8 +1,7 @@
 import requests
-from django.http import HttpResponse
 from django.shortcuts import render
 from .models import JejuValuePlace
-from data_api.models import Test
+
 from django.conf import settings
 
 DATA_API_KEY = settings.DATA_API_KEY
@@ -10,13 +9,8 @@ DATA_API_KEY = settings.DATA_API_KEY
 
 # Create your views here.
 
-def orm_test(request):
-    data = Test.objects.all()
-    print(data)
-    return HttpResponse("Hello, world. You're at the polls index.")
 
-
-def call_api(request):
+def call_api_jeju(request):
     # 쿼리 파라미터 방식
     page_no = int(request.GET.get("pageNo", 1))
 

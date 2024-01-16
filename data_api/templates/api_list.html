@@ -4,20 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="{% static 'css/bulma.min.css' %}">
     <style>
+
         .columns {
             display: flex;
             justify-content: center;
-        }
-
-        .column.is-10 {
-            flex: none;
-        }
-
-        .section {
-            padding-left: 3rem; /* 왼쪽 여백 */
-            padding-right: 3rem; /* 오른쪽 여백 */
         }
 
         /* 여기에 CSS를 추가합니다 */
@@ -30,11 +22,11 @@
     </style>
 </head>
 <body>
-<section class="section">
+<section class="section px-3 ">
     <div class="container">
         <div class="columns is-centered">
-            <div class="column is-10">
-                <table class="table is-bordered is-striped is-hoverable">
+            <div class="column is-10 is-centered">
+                <table class="table is-bordered is-striped is-hoverable is-fullwidth">
                     <thead>
                     <tr>
                         <th>업소 명</th>
