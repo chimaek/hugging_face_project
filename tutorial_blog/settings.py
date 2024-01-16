@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "blog.apps.BlogConfig",
     "main.apps.MainConfig",
     "data_api.apps.DataApiConfig",
+    "mathfilters",
 ]
 
 MIDDLEWARE = [

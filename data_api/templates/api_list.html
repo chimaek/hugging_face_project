@@ -1,4 +1,5 @@
 {% load static %}
+{% load mathfilters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,42 +7,33 @@
     <title>Title</title>
     <link rel="stylesheet" href="{% static 'css/bulma.min.css' %}">
     <style>
-
-        .columns {
-            display: flex;
-            justify-content: center;
-        }
-
-        /* 여기에 CSS를 추가합니다 */
-        .table td, .table th {
-            vertical-align: middle;
+        table, th, thead{
             text-align: center;
-            white-space: nowrap; /* 추가된 속성 */
-            word-break: break-all; /* 필요에 따라 추가 */
+            vertical-align : middle;
         }
     </style>
 </head>
 <body>
-<section class="section px-3 ">
+<section class="section">
     <div class="container">
-        <div class="columns is-centered">
-            <div class="column is-10 is-centered">
-                <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+        <div class="columns">
+            <div class="column">
+                <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
                     <thead>
                     <tr>
-                        <th>업소 명</th>
-                        <th>읍면동</th>
-                        <th>업종 명</th>
-                        <th>도로명 주소</th>
-                        <th>업소 전화번호</th>
-                        <th>품목 내용</th>
-                        <th>기타 내용</th>
-                        <th>등록 일시</th>
-                        <th class="has-text-centered is-narrow">위도</th>
-                        <th class="has-text-centered is-narrow">경도</th>
-                        <th>데이터 코드</th>
-                        <th>선정 연도</th>
-                        <th>선정 월</th>
+                        <th><abbr title="업소 명">업소 명</abbr></th>
+                        <th><abbr>읍면동</abbr></th>
+                        <th><abbr>업종 명</abbr></th>
+                        <th><abbr>도로명 주소</abbr></th>
+                        <th><abbr>업소 전화번호</abbr></th>
+                        <th><abbr>품목 내용</abbr></th>
+                        <th><abbr>기타 내용</abbr></th>
+                        <th><abbr>등록 일시</abbr></th>
+                        <th class="has-text-centered"><abbr>위도</abbr></th>
+                        <th class="has-text-centered"><abbr>경도</abbr></th>
+                        <th><abbr>데이터 코드</abbr></th>
+                        <th><abbr>선정 연도</abbr></th>
+                        <th><abbr>선정 월</abbr></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -69,20 +61,32 @@
             </div>
         </div>
     </div>
-</section>
 
+</section>
 <nav class="pagination is-rounded is-centered" role="navigation" aria-label="pagination">
-    <a class="pagination-previous">이전 페이지</a>
-    <a class="pagination-next">다음 페이지</a>
+    {% if data.page_no > 1 %}
+        <a class="pagination-previous" href="?pageNo={{ data.page_no | add:-1 }}">이전 페이지</a>
+    {% else %}
+        <a class="pagination-previous" disabled>이전 페이지</a>
+    {% endif %}
+    <a class="pagination-next" href="?pageNo={{ data.page_no | add:1 }}">다음 페이지</a>
     <ul class="pagination-list">
-        <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
+        {% if data.page_no > 1 %}
+            <li><a class="pagination-link" aria-label="Goto_page_1" href="?pageNo=1">1</a></li>
+        {% endif %}
+        {% if data.page_no > 2 %}
+            <li><a class="pagination-link" aria-label="Goto_page_2" href="?pageNo=2">2</a></li>
+        {% endif %}
         <li><span class="pagination-ellipsis">&hellip;</span></li>
-        <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-        <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
-        <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
-        <li><span class="pagination-ellipsis">&hellip;</span></li>
-        <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
+        <li><a class="pagination-link is-current" aria-label="Page_current" aria-current="page">{{ data.page_no }}</a></li>
+        {% if data.end_page_number != data.page_no %}
+            <li><a class="pagination-link" aria-label="Goto_next_page" href="?pageNo={{ data.page_no | add:1 }}">{{ data.page_no | add:1 }}</a></li>
+            <li><span class="pagination-ellipsis">&hellip;</span></li>
+        <li><a class="pagination-link" aria-label="Goto_page_last" href="?pageNo={{ data.end_page_number }}">{{ data.end_page_number }}</a></li>
+        {% endif %}
+
     </ul>
 </nav>
+
 </body>
 </html>

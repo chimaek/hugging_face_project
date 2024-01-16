@@ -22,7 +22,6 @@ def call_api_jeju(request):
 
     res_data = requests.get(url_base)
 
-
     # 안티패턴
     if not res_data.status_code == 200 or page_no < 1:
         return render(request, "error_500.html")
@@ -32,8 +31,8 @@ def call_api_jeju(request):
     total_page = api_data['response']['body']['totalCount']
     page_no = api_data['response']['body']['pageNo']
     items = api_data['response']['body']['items']['item']
-
-    end_page_number = total_page // 100 + 1
+    print(total_page, page_no)
+    end_page_number = (total_page // 10) + 1
 
     data = {
         "total_page": total_page,
@@ -44,26 +43,23 @@ def call_api_jeju(request):
     for v in items:
         save_jeju_value_place_data(v)
 
-
-
-
     return render(request, "api_list.html", {"data": data})
 
 
 def save_jeju_value_place_data(val: dict):
-    if not JejuValuePlace.objects.filter(bsshNm=val['bsshNm']).exists():
+    if not JejuValuePlace.objects.filter(bsshNm=val.get('bsshNm')).exists():
         JejuValuePlace.objects.create(
-            emdNM=val['emdNm'],
-            bsshNm=val['bsshNm'],
-            indutyNm=val['indutyNm'],
-            rnAdres=val['rnAdres'],
-            bsshTelno=val['bsshTelno'],
-            prdlstCn=val['prdlstCn'],
-            etcCn=val['etcCn'],
-            regDt=val['regDt'],
-            laCrdnt=val['laCrdnt'],
-            loCrdnt=val['loCrdnt'],
-            dataCd=val['dataCd'],
-            slctnYr=val['slctnYr'],
-            slctnMm=val['slctnMm'],
+            emdNM=val.get('emdNm', None),
+            bsshNm=val.get('bsshNm', None),
+            indutyNm=val.get('indutyNm', None),
+            rnAdres=val.get('rnAdres', None),
+            bsshTelno=val.get('bsshTelno', None),
+            prdlstCn=val.get('prdlstCn', None),
+            etcCn=val.get('etcCn', None),
+            regDt=val.get('regDt', None),
+            laCrdnt=val.get('laCrdnt', None),
+            loCrdnt=val.get('loCrdnt', None),
+            dataCd=val.get('dataCd', None),
+            slctnYr=val.get('slctnYr', None),
+            slctnMm=val.get('slctnMm', None),
         )
