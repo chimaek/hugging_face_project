@@ -31,7 +31,6 @@ def call_api_jeju(request):
     total_page = api_data['response']['body']['totalCount']
     page_no = api_data['response']['body']['pageNo']
     items = api_data['response']['body']['items']['item']
-    print(total_page, page_no)
     end_page_number = (total_page // 10) + 1
 
     data = {
