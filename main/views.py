@@ -9,7 +9,6 @@ from io import BytesIO
 from PIL import Image
 
 
-
 # Create your views here.
 
 
@@ -43,8 +42,6 @@ def predict_image(request):
         processor = TrOCRProcessor.from_pretrained("ddobokki/ko-trocr")
         model = VisionEncoderDecoderModel.from_pretrained("ddobokki/ko-trocr")
         tokenizer = AutoTokenizer.from_pretrained("ddobokki/ko-trocr")
-        # url = "https://raw.githubusercontent.com/ddobokki/ocr_img_example/master/g.jpg"
-        # response = requests.get(url)
 
         img = Image.open(BytesIO(data.read()))
 
@@ -52,13 +49,11 @@ def predict_image(request):
         generated_ids = model.generate(pixel_values, max_length=64)
         generated_text = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
         generated_text = unicodedata.normalize("NFC", generated_text)
-        # print(generated_text)
         request.session['image'] = generated_text
 
     else:
-        data = request.session.get('image', None)
-        return render(request, "image_result.html")
 
+        return render(request, "image_result.html")
 
     return redirect("main:image_result")
 
