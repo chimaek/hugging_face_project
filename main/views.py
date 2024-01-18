@@ -16,6 +16,7 @@ def index(request):
     get_prediction = request.session.get('prediction', None)
     if get_prediction is not None:
         prediction = get_prediction[0]['generated_text']
+        request.session.delete('prediction')
     else:
         prediction = None
     return render(request, "main.html", {"prediction": prediction})
@@ -61,4 +62,10 @@ def predict_image(request):
 def image_result(request):
     image = request.session.get('image', None)
 
-    return render(request, "image_result.html", {"image": image})
+    if image is not None:
+        image_data = image
+        request.session.delete('image')
+    else:
+        image_data = None
+
+    return render(request, "image_result.html", {"image": image_data})
