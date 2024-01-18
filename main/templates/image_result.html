@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>이미지 생성 페이지</title>
+    <link rel="stylesheet" href="{% static 'css/bulma.min.css' %}">
+</head>
+<body>
+<div class="container">
+    <div>
+        <h1 class="title">이미지 생성 페이지</h1>
+        <form action="{% url 'main:predict_image' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="field">
+                <label class="label">이미지</label>
+                <div class="control">
+                    <input type="file" class="form" name="image_file" id="imageFile">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <button class="button is-link">이미지 분석</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% if image %}
+        <br>
+        <br>
+        <div>
+            <h2 class="subtitle">분석된 이미지 내용</h2>
+            <div>
+                <h1>
+                    <strong>{{ image }}</strong>
+                </h1>
+            </div>
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>
